@@ -11,10 +11,6 @@ const { getConnection } = require('./mongoMockConnection')
 
 const mongoConnection = require('../../models/connection');
 
-const TaskModel = {
-  get: () => { }
-}
-
 describe('fetch all tasks in DB', () => {
 
   let connectionMock;
