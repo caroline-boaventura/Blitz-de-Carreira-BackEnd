@@ -1,4 +1,4 @@
-const { create } = require('../models/taskModel');
+const { create } = require('../models/taskModelCreateTask');
 
 // Referência: https://www.horadecodar.com.br/2021/04/03/como-pegar-a-data-atual-com-javascript/
 const createDate = () => {
