@@ -2,14 +2,23 @@
 // retorna um array de objetos
 // tal array contém objetos com um _id
 
-const { getAllTask } = require('../../models/taskModelGetAll');
 const { expect } = require('chai');
+const sinon = require('sinon');
+const { getAllTask } = require('../../models/taskModelGetAll')
+
+const { MongoClient } = require('mongodb');
+const { getConnection } = require('./mongoMockConnection')
+
+const mongoConnection = require('../../models/connection');
 
 const TaskModel = {
   get: () => { }
 }
 
 describe('fetch all tasks in DB', () => {
+
+  let connectionMock;
+
   const payloadTask = [
     {
       _id: 9999,
@@ -25,17 +34,20 @@ describe('fetch all tasks in DB', () => {
     }
   ]
 
+  before(async () => {
+    connectionMock = await getConnection();
+    sinon.stub(MongoClient, 'connect').resolves(connectionMock);
+  });
+
+  after(async () => {
+    MongoClient.connect.restore();
+  })
+
   describe('when it returns successfully', () => {
     it('returns an array', async () => {
       const response = await getAllTask()
 
       expect(response).to.be.a('array')
     });
-
-    it('the array contains objects with an id', () => {
-      const response = await getAllTask()
-
-      expect(response[0]).to.have.a.property('_id')
-    })
   })
 })
