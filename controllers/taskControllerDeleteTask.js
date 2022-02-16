@@ -6,7 +6,7 @@ const deleteTask = async (req, res, next) => {
 
     await deleteTaskById(id);
 
-    return res.status(204).json();
+    return res.status(204).json({ message: "Task apagada!" });
   } catch (error) {
     console.log(`ERROR DELETE TASK: ${error}`);
     next(error);
